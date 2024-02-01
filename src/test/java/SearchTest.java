@@ -32,6 +32,30 @@ public class SearchTest {
 
 
     }
+     @Test
+    public void testGoogleSearchWithWrongKeyword() {
+
+        String wrongKeyword = "xyzabc";
+        searchLocators.setSearchInput(wrongKeyword);
+
+
+        searchLocators.setSearchInput(String.valueOf(Keys.RETURN));
+
+        // Wait for the search results to load
+        try {
+            Thread.sleep(2000); // Wait for 2 seconds (adjust as needed)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebElement searchResults = driver.findElement(By.id("search"));
+
+
+        String searchResultsText = (searchResults).getText();
+        soft.assertFalse(searchResultsText.contains(wrongKeyword));
+        soft.assertAll();
+
+    }
     @AfterTest
     public void Quit(){
         driver.quit();
